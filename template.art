@@ -1,0 +1,3 @@
+{{each rows v i}}
+  <p>v.msg---v.id</p>
+{{/each}}

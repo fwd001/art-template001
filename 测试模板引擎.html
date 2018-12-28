@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    
+  </div>
+  <script src="./lib/jquery-1.12.4.js"></script>
+  <script src="./lib/template-web.js"></script>
+
+
+  <script type="text/html" id="tpl">
+    {{each rows v i}}
+    <div style="border: 1px solid #ccc; margin-bottom: 5px; padding-left: 15px;">
+      <p>v: {{ v.msg }}</p>
+      <p data-id="{{v.id}}">i: {{ i }}</p>
+      <p>id1: {{ v.id | timestamp }}</p>
+      <p>id2: {{ v.id | dateFormat 'yy-mm-dd' }}</p>
+      {{if v.id === 2}}
+      <p style="background: #ccc">这个是有在id为2才显示</p>
+      {{else}}
+      <p style="background: #ccc">*****</p>
+      {{/if}}
+    </div>
+    {{/each}}
+  </script>
+
+  <script>
+    template.defaults.imports.dateFormat = function (date, format) {
+      console.log('format');
+      return date + format
+    };
+    template.defaults.imports.timestamp = function (value) {
+      return value * 1000
+    };
+    var obj = [{
+        id: 1,
+        msg: '测试1'
+      },
+      {
+        id: 2,
+        msg: '测试2'
+      },
+      {
+        id: 3,
+        msg: '测试3'
+      },
+    ]
+    $('#app').html(template("tpl", {
+      rows: obj
+    }));
+    $('#app').on('click', '[data-id]', function (e) {
+      console.log($(e.target).data('id', '1'))
+      console.log($(e.target).data());
+    })
+  </script>
+</body>
+
+</html>

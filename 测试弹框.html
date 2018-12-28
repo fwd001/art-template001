@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .msgDom {
+      /* visibility: hidden; */
+      display: none;
+      /* position: absolute; */
+      transition: all 200ms ease-out;
+      transform: translateY(10px);
+      opacity: 0;
+      margin: 0 auto;
+      /* left: 50%; */
+      /* transform: translateX(-50%); */
+      padding: 8px 16px;
+      border-radius: 5px;
+      box-shadow: 1px 4px 13px 1px rgba(0, 0, 0, 0.14);
+      font-size: 14px;
+      color: #595959;
+      width: auto;
+      max-width: 300px;
+      z-index: 999;
+      margin-bottom: 12px;
+    }
+
+    .tipIcon {
+      float: left;
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      margin-right: 8px;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button id="btn1">提示弹框</button>
+  <button id="btn2">警告弹框</button>
+  <script src="lib/jquery-1.12.4.js"></script>
+
+  <script>
+    $('#btn1').on('click', function () {
+      message({
+        msg: 'this is a message of successa message of successa message of successa message of successa message of successa message of success',
+        type: 'success'
+      })
+    })
+    $('#btn2').on('click', function () {
+      message({
+        msg: 'this is a message新学习',
+        type: 'warning'
+      })
+    })
+
+    function message(options) {
+      var msg =
+        `<div class="msgDom"><span class="tipIcon" style="background-color: #72c040;"></span> <span class="text">${options.msg}</span></div>`
+      switch (options.type) {
+        case 'success':
+          msg =
+            `<div class="msgDom"><span class="tipIcon" style="background-color: #72c040;"></span><span class="text">${options.msg}</span></div>`
+          break;
+        case 'error':
+          msg =
+            `<div class="msgDom"><span class="tipIcon" style="background-color: #e23c39;"></span><span class="text">${options.msg}</span></div>`
+          break;
+        case 'warning':
+          msg =
+            `<div class="msgDom"><span class="tipIcon" style="background-color: #f0af41;"></span><span class="text">${options.msg}</span></div>`
+          break;
+      }
+      var dom = $(msg)
+      $('body').append(dom)
+      dom.show(0, function () {
+
+        dom.css({
+          transform: 'translateY(0)',
+          opacity: 1
+        })
+      });
+      // dom.width(dom.find('.text').innerWidth() + 25)
+      // console.log(dom.find('.text').innerWidth());
+      setTimeout(() => {
+        dom.css({
+          transform: 'translateY(-10px)',
+          opacity: 0
+        });
+        setTimeout(() => {
+          dom.remove()
+        }, 200);
+      }, 2000);
+    }
+  </script>
+</body>
+
+</html>
